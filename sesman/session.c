@@ -501,6 +501,18 @@ session_start_fork(tbus data, tui8 type, struct SCP_SESSION *s)
                 "Failed to clone the session data - out of memory");
             g_exit(1);
         }
+        
+
+        /* Set the secondary groups before starting the session to prevent
+         * problems on PAM-based systems (see pam_setcred(3)) */
+        if (g_initgroups(s->username) != 0)
+        {
+            LOG(LOG_LEVEL_ERROR,
+                "Failed to initialise secondary groups for %s: %s",
+                s->username, g_get_strerror());
+            g_exit(1);
+        }
+
         auth_start_session(data, display);
         g_delete_wait_obj(g_term_event);
         sesman_close_all();

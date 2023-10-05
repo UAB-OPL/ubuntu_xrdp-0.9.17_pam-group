@@ -2783,12 +2783,18 @@ g_setgid(int pid)
 /* returns error, zero is success, non zero is error */
 /* does not work in win32 */
 int
-g_initgroups(const char *user, int gid)
+g_initgroups(const char *user)
 {
 #if defined(_WIN32)
     return 0;
 #else
-    return initgroups(user, gid);
+    int gid;
+    int error = g_getuser_info(user, &gid, NULL, NULL, NULL, NULL);
+    if (error ==0)
+    {
+        error = initgroups(user, gid);
+    }
+    return error;
 #endif
 }
 

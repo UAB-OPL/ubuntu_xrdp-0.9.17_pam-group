@@ -1,3 +1,9 @@
+xrdp (0.9.17-2ubuntu2~uab) UNRELEASED; urgency=medium
+
+  * Apply patch to get groups from pam-group for classroom at UAB
+
+ -- Jordi Roman <Jordi.Roman@uab.cat>  Thu, 05 Oct 2023 08:47:58 +0000
+
 xrdp (0.9.17-2ubuntu2) jammy; urgency=medium
 
   * No-change rebuild to update maintainer scripts, see LP: 1959054
